@@ -4,9 +4,6 @@ const port = process.env.PORT || 5000
 
 const app = express()
 
-app.get('/api/appointments/:id', (req, res) => {
-    const id = req.params.id
-    res.json({ message: `got milk ${id}`})
-})
+app.use('/api/appointments', require(`./routes/appointments`))
 
 app.listen(port, () => console.log(`na maika ti putkata ${port}`))
