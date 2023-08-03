@@ -6,8 +6,7 @@ const mongoose = require('mongoose')
 const URL = process.env.MONGO_URL
 
 mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-    console.log('Connected to MongoDB successfully!');
-    // Rest of your code...
+    console.log('DB Connected');
   })
   .catch((error) => {
     console.error('Error connecting to MongoDB:', error);
@@ -15,14 +14,10 @@ mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(
 
 const app = express()
 
+app.use(express.json())
+
+app.use(express.urlencoded({ extended: false }))
+
 app.use('/api/appointments', require(`./routes/appointments`))
 
-app.listen(port, () => console.log(`na maika ti putkata ${port}`))
-
-process.on('SIGINT', () => {
-    
-    server.close(() => {
-      console.log('Server closed gracefully.');
-      process.exit(0);
-    });
-  });
+app.listen(port, () => console.log(`Server running on port: ${port}`))
