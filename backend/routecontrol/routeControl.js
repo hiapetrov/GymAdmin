@@ -1,38 +1,55 @@
 const Items = require('../models/itemModel1')
 
 const getItem = async (req, res) => {
-    console.log('connected to React')
-
-    const item = await Items.find()
-
-    res.json(item)
+    try {
+        const item = await Items.find()
+        res.status(200).json(item)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json(error)
+    }
 }
 
 const createItem = async (req, res, next) => {
     try {
-        const item = await Items.create({
-        name : req.body.name,
-        lastName: req.body.lastName,
-        date: req.body.date
+        if (!req.body.name) {
+            res.status(400)
+        } 
+        const newItem = await Items.create({
+            name : req.body.name
         })
-        console.log('connected to React')
-        await res.redirect('http://localhost:3000/')
+        
+        res.status(200).json(newItem)
     } catch (error) {
         console.log(error.message)
-
-        await res.redirect('http://localhost:3000/')
+        res.json(error)
     }
-    
 }
 
 const updateItem = async (req, res) => {
-    const id = req.params.id
-    await res.json({ message: `Updated Item ${id}`})
+    try {
+        const updatedItem = await Items.findByIdAndUpdate(
+            req.params.id, req.body, {
+                new: true
+            })
+        await res.json(updatedItem)
+    } catch (error) {
+        res.status(404)
+    }
  }
 
 const deleteItem =  async (req, res) => {
-    const id = req.params.id
-    await res.json({ message: `Deleted Item ${id}`})
+    try {
+        const item = await Items.findById(req.params.id)
+        if (!item) {
+            res.status(404).json({message: 'could not find item'})
+        } else {
+        const deletedItem = await Items.deleteOne(item)
+        res.json({ message:'Item deleted',item})}
+    } catch (error) {
+        console.log(error.message)
+        res.json(error)
+    }
 }
 
 module.exports = {
