@@ -3,7 +3,7 @@ const {
   authUser,
   createUser,
   getUsers,
-//   getUserProfile,
+  logoutUser,
 //   updateUserProfile,
 } = require('../routecontrol/userController');
 
@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post('/', createUser);
 router.post('/auth', authUser);
-// router.post('/logout', logoutUser);
+router.post('/logout', logoutUser);
 router.get('/', getUsers)
 //   .route('/profile')
 //   .get(protect, getUserProfile)
