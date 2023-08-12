@@ -8,21 +8,12 @@ import SignUp from './components/SingupForm.jsx';
 const App = () => {
   const [authState, setAuthState] = useState(0); // 0 for carousel, 1 for login, 2 for signup
 
-  const handleLoginButtonClick = () => {
-    setAuthState(authState === 1 ? 0 : 1);
-  };
-
-  const handleSignUpButtonClick = () => {
-    setAuthState(authState === 2 ? 0 : 2);
-  };
 
   return (
     <div>
       <Header
         setAuthState={setAuthState}
         authState={authState}
-        onLoginButtonClick={handleLoginButtonClick}
-        onSignUpButtonClick={handleSignUpButtonClick}
       />
       {authState === 0 && <Story />}
       {authState === 1 && <Login />}

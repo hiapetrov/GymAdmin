@@ -4,16 +4,19 @@ import React from 'react';
 const Header = ({ setAuthState, authState }) => {
   const handleHomeButtonClick = () => {
     setAuthState(0);
-  };
+  }
 
   const handleLoginButtonClick = () => {
     setAuthState(1);
-  };
+  }
 
   const handleSignUpButtonClick = () => {
     setAuthState(2);
-  };
+  }
 
+  const handleLogoutClick = () => {
+    setAuthState(0)
+  }
   return (
     <header className="header">
       <div>
@@ -33,6 +36,12 @@ const Header = ({ setAuthState, authState }) => {
           <button className="button" onClick={handleHomeButtonClick}>
             Go Back
           </button>
+        )}
+        {authState === 3 && (
+          <>
+            {/* Display the logout button */}
+            <button onClick={handleLogout}>Logout</button>
+          </>
         )}
       </div>
     </header>
