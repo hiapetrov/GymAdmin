@@ -13,4 +13,4 @@ const generateToken = (res, userID) => {
     })
 }
 
-export {generateToken}
+export default generateToken

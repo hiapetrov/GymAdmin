@@ -1,17 +1,18 @@
+import jwt from 'jsonwebtoken'
 import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
-import jwt from 'jsonwebtoken'
 
 const protect = asyncHandler( async (req, res, next) => {
     let token;
-
-    token = req.cookies.jwt;
+    token = req.cookies.name
 
     if (token) {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
             req.user = await User.findOne(decoded.userID).select("-password")
+
+            next()
         } catch (error) {
             res.status(401)
             throw new Error('Invalid Token')
