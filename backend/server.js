@@ -1,9 +1,9 @@
-const express = require('express')
-const dotenv = require('dotenv').config()
-const mongoose = require('mongoose')
-const connectDB = require('./config/db')
-const userRoutes = require('./routes/userRoutes')
-const { errorHandler, notFound} = require('./middleware/errorHandler.js')
+import express from 'express'
+import dotenv from 'dotenv'
+dotenv.config()
+import connectDB from './config/db.js'
+import userRoutes  from './routes/userRoutes.js'
+import { errorHandler, notFound} from './middleware/errorHandler.js'
 
 const port = process.env.PORT || 5000
 

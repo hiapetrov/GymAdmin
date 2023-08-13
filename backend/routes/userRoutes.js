@@ -1,11 +1,13 @@
-const express = require('express');
-const {
+import express from 'express';
+import {
   authUser,
   createUser,
   getUsers,
   logoutUser,
-//   updateUserProfile,
-} = require('../routecontrol/userController');
+  updateUserProfile,
+  getUserProfile
+} from '../routecontrol/userController.js';
+import {protect} from '../middleware/authHandler.js'
 
 const router = express.Router();
 
@@ -13,8 +15,9 @@ router.post('/', createUser);
 router.post('/auth', authUser);
 router.post('/logout', logoutUser);
 router.get('/', getUsers)
-//   .route('/profile')
-//   .get(protect, getUserProfile)
-//   .put(protect, updateUserProfile);
+router
+  .route('/profile')
+  .get(protect, getUserProfile)
+  .put(protect, updateUserProfile);
 
-module.exports = router;
+export default router;
